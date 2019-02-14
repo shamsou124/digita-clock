@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <style>
+    .shams-clock {
+      background: #1b1e21;
+      padding:100px;
+      width:30%;
+      text-align:center;
+      border-radius:10px;
+      border-top-right-radius: 50px;
+      margin:0 auto;
+      margin-top:150px;
+      box-shadow: -1px 3px 3px 4px rgba(4,3,45,0.79);
+  }
+    #clock{
+        background-color:white;
+        font-family: Verdana;
+        font-size:50px;
+        padding: 10px;
+        font-weight: bolder;
+        border-radius: 7px;
+        color:black;
+    }
+    #clock span {
+        color:black;
+        text-shadow:0px 0px 1px #333;
+        font-size:30px;
+        position:relative;
+        top:-20px;
+        left:-10px;
+    }
+    #date {
+        letter-spacing:7px;
+        font-size:15px;
+        font-family:monospace,arial,sans-serif,Verdana;
+        color:whitesmoke;
+    }
+
+  </style>
+    <title>shamsu's clock</title>
+  </head>
+  <body onload="startTime()">
+    <div id="clockdate">
+  <div class="shams-clock">
+    <div id="clock"></div>
+    <div id="date"></div>
+  </div>
+</div>
+  <script>
+    function startTime() {
+        var today = new Date();
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var seconds = today.getSeconds();
+        ap = (hours < 12) ? "<span>AM</span>" : "<span>PM</span>";
+        hours = (hours == 0) ? 12 : hours;
+        hours = (hours > 12) ? hours - 12 : hours;
+        //Add a zero in front of numbers<10
+        hours = checkTime(hours);
+        minutes = checkTime(minutes);
+        seconds = checkTime(seconds);
+        //gets the id of the div that displays the time
+        document.getElementById("clock").innerHTML = hours + ":" + minutes + ":" + seconds + " " + ap;
+        //collection of date and time array
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var currentWeekDay = days[today.getDay()];
+        var currentDay = today.getDate();
+        var currentMonth = months[today.getMonth()];
+        var currentYear = today.getFullYear();
+        var date = currentWeekDay+", "+currentDay+" "+currentMonth+" "+currentYear;
+        document.getElementById("date").innerHTML = date;
+        var time = setTimeout(function(){ startTime() }, 500);
+    }
+    //function that append 0 before digits ranges between 1 to 9
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+  </script>
+</body>
+</html>
